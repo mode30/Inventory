@@ -66,12 +66,41 @@ func (product *Product)newProduct()(products *Product,err error){
 		return &Product{},errors.New("cannot return product description")
 
 	}
+	product.costPrice,err=parseFloat("enter price")
+	if err != nil{
+		return &Product{},errors.New("cannot parse float")
+	}
+	product.sellingPrice,err=parseFloat("enter selling price:")
+	if err != nil{
+		return &Product{},errors.New("cannot parse float")
+	}
+	product.isActive=true
+
 	if product.name==""||product.description==""||product.categoryId==0||product.sellingPrice==0{
 		return nil,errors.New("cannot return empty format")
 	}else{
 		return &Product{
-			product.productId:product.productId+1,
-			product.name:product.name,
+			productId:product.productId+1,
+			name:product.name,
+			description:product.description,
+			costPrice: product.costPrice,
+			sellingPrice:product.sellingPrice,
+			categoryId: product.categoryId+1,
 		},nil
 	}
+}
+
+func (product *Product)clearCache()(clearedProduct *Product,err error){
+	return &Product{
+		product.categoryId:0.0,
+		product.productId:0
+		product.name:""
+		product.description:""
+		product.costPrice:0.0
+		product.sellingPrice:0.0
+		product.isActive:false
+
+	},nil
+	 // return *Product,nil
+
 }
